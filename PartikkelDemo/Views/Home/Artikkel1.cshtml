@@ -1,0 +1,16 @@
+﻿@using System.Web.UI.WebControls
+@{
+    ViewBag.Title = "Artikkel 1";
+}
+<h2>@ViewBag.Title.</h2>
+@if (!ViewBag.HasBought)
+{
+    var url = "https://www.partikkel.io/particket/access/?url=" + Request.Url; 
+    <h3>Denne artikkelen koster kr 2,-</h3>
+    <a href="@url">Klikk her for å kjøpe artikkelen</a>
+}
+else
+{
+    <h3>@ViewBag.Message</h3>
+    <p>Use this area to provide additional information.</p>
+}
