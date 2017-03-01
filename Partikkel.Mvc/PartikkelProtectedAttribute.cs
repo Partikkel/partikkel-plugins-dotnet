@@ -26,9 +26,10 @@ namespace Partikkel.Mvc
 
         private void ValidateToken(string token, string path, List<string> urlList)
         {
+            var paywallUrlWithArticle = PaywallUrl + "?article=" + path;
             if (string.IsNullOrEmpty(token))
             {
-                HttpContext.Current.Response.Redirect(PaywallUrl);
+                HttpContext.Current.Response.Redirect(paywallUrlWithArticle);
             }
             else
             {
@@ -37,16 +38,16 @@ namespace Partikkel.Mvc
                 var result = validator.Validate(token, CertPath);
                 if (result == null)
                 {
-                    HttpContext.Current.Response.Redirect(PaywallUrl);
+                    HttpContext.Current.Response.Redirect(paywallUrlWithArticle);
                     return;
                 }
-
+                
                 //Check that the token url matches the current url    
                 var purchasedUrl = result["url"] as string;
                 //string path = String.Format("{0}{1}{2}{3}", url.Scheme, Uri.SchemeDelimiter, url.Authority, url.AbsolutePath);
                 if (purchasedUrl == null || !purchasedUrl.Contains(path))
                 {
-                    HttpContext.Current.Response.Redirect(PaywallUrl);
+                    HttpContext.Current.Response.Redirect(paywallUrlWithArticle);
                 }
                 else
                 {
