@@ -52,6 +52,7 @@ namespace Partikkel.Mvc
                 else
                 {
                     urlList.Add(path);
+                    HttpContext.Current.Session["Particket"] = urlList;
                 }
             }
         }
